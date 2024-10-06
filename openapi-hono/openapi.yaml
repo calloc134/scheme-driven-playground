@@ -41,6 +41,10 @@ components:
           type: string
         content:
           type: string
+      required:
+        - id
+        - title
+        - content
     NewPost:
       type: object
       properties:

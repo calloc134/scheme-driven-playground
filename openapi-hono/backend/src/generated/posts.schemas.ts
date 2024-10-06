@@ -10,8 +10,8 @@ export interface NewPost {
 }
 
 export interface Post {
-  content?: string;
-  id?: number;
-  title?: string;
+  content: string;
+  id: number;
+  title: string;
 }
 

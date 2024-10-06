@@ -7,9 +7,9 @@
 import { z as zod } from 'zod';
 
 export const getPostsResponseItem = zod.object({
-  "id": zod.number().optional(),
-  "title": zod.string().optional(),
-  "content": zod.string().optional()
+  "id": zod.number(),
+  "title": zod.string(),
+  "content": zod.string()
 }).strict()
 export const getPostsResponse = zod.array(getPostsResponseItem)
 
