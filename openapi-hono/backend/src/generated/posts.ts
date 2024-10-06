@@ -4,23 +4,28 @@
  * Post API
  * OpenAPI spec version: 1.0.0
  */
-import { Hono } from "hono";
+import {
+  Hono
+} from 'hono'
 
-import { getPostsHandlers } from "../handlers/getPosts";
-import { postPostsHandlers } from "../handlers/postPosts";
+import { getPostsHandlers } from '../handlers/getPosts';
+import { postPostsHandlers } from '../handlers/postPosts';
 
-const app = new Hono();
+
+const app = new Hono()
 
 /**
  * @summary Retrieve all posts
  */
 
-app.get("/posts", ...getPostsHandlers);
+app.get('/posts',...getPostsHandlers)
+
 
 /**
  * @summary Create a new post
  */
 
-app.post("/posts", ...postPostsHandlers);
+app.post('/posts',...postPostsHandlers)
 
-export default app;
+
+export default app

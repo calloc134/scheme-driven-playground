@@ -19,3 +19,9 @@ export const postPostsBody = zod.object({
   "content": zod.string()
 })
 
+export const postPostsResponse = zod.object({
+  "id": zod.number(),
+  "title": zod.string(),
+  "content": zod.string()
+}).strict()
+
