@@ -5,7 +5,7 @@ export default defineConfig({
     output: {
       mode: "split",
       //
-      target: "src/types-and-zod/posts.ts",
+      target: "src/generated/posts.ts",
       // Honoを指定
       client: "hono",
       override: {
