@@ -9,9 +9,12 @@ import {
   useQuery
 } from '@tanstack/react-query'
 import type {
+  DefinedInitialDataOptions,
+  DefinedUseQueryResult,
   MutationFunction,
   QueryFunction,
   QueryKey,
+  UndefinedInitialDataOptions,
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
@@ -61,7 +64,7 @@ export const getGetPostsQueryKey = () => {
     }
 
     
-export const getGetPostsQueryOptions = <TData = Awaited<ReturnType<typeof getPosts>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getPosts>>, TError, TData>, fetch?: RequestInit}
+export const getGetPostsQueryOptions = <TData = Awaited<ReturnType<typeof getPosts>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPosts>>, TError, TData>>, fetch?: RequestInit}
 ) => {
 
 const {query: queryOptions, fetch: fetchOptions} = options ?? {};
@@ -83,12 +86,36 @@ export type GetPostsQueryResult = NonNullable<Awaited<ReturnType<typeof getPosts
 export type GetPostsQueryError = unknown
 
 
+export function useGetPosts<TData = Awaited<ReturnType<typeof getPosts>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPosts>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getPosts>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, fetch?: RequestInit}
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: QueryKey }
+export function useGetPosts<TData = Awaited<ReturnType<typeof getPosts>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPosts>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getPosts>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, fetch?: RequestInit}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey }
+export function useGetPosts<TData = Awaited<ReturnType<typeof getPosts>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPosts>>, TError, TData>>, fetch?: RequestInit}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey }
 /**
  * @summary Retrieve all posts
  */
 
 export function useGetPosts<TData = Awaited<ReturnType<typeof getPosts>>, TError = unknown>(
-  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getPosts>>, TError, TData>, fetch?: RequestInit}
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPosts>>, TError, TData>>, fetch?: RequestInit}
 
   ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
 
