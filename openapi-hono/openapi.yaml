@@ -24,7 +24,7 @@ paths:
             schema:
               $ref: "#/components/schemas/NewPost"
       responses:
-        "201":
+        "200":
           description: Post created successfully
           content:
             application/json:
