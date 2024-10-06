@@ -1,7 +1,7 @@
 import { createFactory } from 'hono/factory';
-import { zValidator } from '../types-and-zod/posts.validator';
-import { GetPostsContext } from '../types-and-zod/posts.context';
-import { getPostsResponse } from '../types-and-zod/posts.zod';
+import { zValidator } from '../generated/posts.validator';
+import { GetPostsContext } from '../generated/posts.context';
+import { getPostsResponse } from '../generated/posts.zod';
 
 const factory = createFactory();
 
