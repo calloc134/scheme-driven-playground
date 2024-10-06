@@ -3,7 +3,7 @@ import { zValidator } from "../generated/posts.validator";
 import { PostPostsContext } from "../generated/posts.context";
 import { postPostsBody, postPostsResponse } from "../generated/posts.zod";
 import { db } from "../db";
-import { randomUUID } from "crypto";
+import { randomInt, randomUUID } from "crypto";
 import { z } from "zod";
 
 const factory = createFactory();
@@ -13,13 +13,15 @@ export const postPostsHandlers = factory.createHandlers(
   async (c: PostPostsContext) => {
     const { title, content } = await c.req.valid("json");
 
+    const id = randomInt(0, 1000);
+
     db.push({
-      id: randomUUID(),
+      id,
       title,
       content,
     });
     const result: z.infer<typeof postPostsResponse> = {
-      id: db.length,
+      id,
       title,
       content,
     };

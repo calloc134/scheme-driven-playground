@@ -1,2 +1,2 @@
 // 簡易的なデータベース
-export let db: Array<{ id: string; title: string; content: string }> = [];
+export let db: Array<{ id: number; title: string; content: string }> = [];
