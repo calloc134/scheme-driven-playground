@@ -11,7 +11,7 @@ export default defineConfig({
       // 内部HTTPクライアントをfetchに指定
       httpClient: "fetch",
       // バックエンドのホストを指定
-      baseUrl: "http://localhost:3777",
+      baseUrl: "http://localhost:3000",
       // 以下はSuspenseを使う場合有効にする
       //   override: {
       //     query: {

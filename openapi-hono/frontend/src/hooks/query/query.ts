@@ -38,7 +38,7 @@ export type getPostsResponse = {
 export const getGetPostsUrl = () => {
 
 
-  return `http://localhost:3777/posts`
+  return `http://localhost:3000/posts`
 }
 
 export const getPosts = async ( options?: RequestInit): Promise<getPostsResponse> => {
@@ -60,7 +60,7 @@ export const getPosts = async ( options?: RequestInit): Promise<getPostsResponse
 
 
 export const getGetPostsQueryKey = () => {
-    return [`http://localhost:3777/posts`] as const;
+    return [`http://localhost:3000/posts`] as const;
     }
 
     
@@ -142,7 +142,7 @@ export type postPostsResponse = {
 export const getPostPostsUrl = () => {
 
 
-  return `http://localhost:3777/posts`
+  return `http://localhost:3000/posts`
 }
 
 export const postPosts = async (newPost: NewPost, options?: RequestInit): Promise<postPostsResponse> => {

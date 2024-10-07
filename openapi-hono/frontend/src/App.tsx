@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {
+  getGetPostsQueryKey,
+  useGetPosts,
+  usePostPosts,
+} from "./hooks/query/query";
+import { useQueryClient } from "@tanstack/react-query";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const queryClient = useQueryClient();
+  const { data, error, isLoading } = useGetPosts();
+
+  const { mutate } = usePostPosts({
+    mutation: {
+      onSuccess: () =>
+        queryClient.invalidateQueries({ queryKey: getGetPostsQueryKey() }),
+    },
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error || !data) {
+    return <div>Error fetching posts</div>;
+  }
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const title = formData.get("title")?.toString() || "";
+    const content = formData.get("content")?.toString() || "";
+    mutate({ data: { title, content } });
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
       <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h2>Posts</h2>
+      <ul>
+        {data.data.map((post) => (
+          <li key={post.id}>
+            <h3>{post.title}</h3>
+            <p>{post.content}</p>
+          </li>
+        ))}
+      </ul>
+      <form onSubmit={onSubmit}>
+        <input name="title" placeholder="title" type="text" />
+        <input name="content" placeholder="content" type="text" />
+        <button type="submit">Add post</button>
+      </form>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
