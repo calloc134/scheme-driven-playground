@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package postapi;
+
+import "google/protobuf/empty.proto";
+
+// Message definitions
+message Post {
+  int32 id = 1;
+  string title = 2;
+  string content = 3;
+}
+
+message PostList {
+  repeated Post posts = 1;
+}
+
+message CreatePostRequest {
+  string title = 1;
+  string content = 2;
+}
+
+message CreatePostResponse {
+  Post post = 1;
+}
+
+// Service definition
+service PostService {
+  rpc GetAllPosts(google.protobuf.Empty) returns (PostList);
+  rpc CreatePost(CreatePostRequest) returns (CreatePostResponse);
+}
