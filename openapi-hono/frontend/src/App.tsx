@@ -6,11 +6,15 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 
 function App() {
+  // クエリ用クライアントの取得
   const queryClient = useQueryClient();
+  // クエリ用フックの呼び出し
   const { data, error, isLoading } = useGetPosts();
 
+  // ミューテーション用フックの呼び出し
   const { mutate } = usePostPosts({
     mutation: {
+      // クエリに成功したらキャッシュを無効化
       onSuccess: () =>
         queryClient.invalidateQueries({ queryKey: getGetPostsQueryKey() }),
     },
